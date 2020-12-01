@@ -8,8 +8,8 @@ const ListViewer = () => {
 
   const { leads, clearLeads, getLexs, keys, postLeads, getDups,sendTodays,getReleases } = leadContext;
 
-  const [startDate, setStartDate] = useState(new Date(Date.now()))  
-  const [endDate, setEndDate] = useState(new Date(Date.now())) 
+  const [startDate, setStartDate] = useState('')  
+  const [endDate, setEndDate] = useState('') 
 
 
   const onChange = e =>{
@@ -18,7 +18,7 @@ const ListViewer = () => {
                   year: "numeric",
                   month: "numeric",
                   day: "numeric",
-                }).format(new Date(e.target.value.replace(/-/, '/').replace(/-/, '/'))))
+                }).format(new Date(e.target.value)).replace(/-/, '/').replace(/-/, '/'))
   } 
 
   const onChange2 = e =>{
@@ -27,7 +27,7 @@ const ListViewer = () => {
                   year: "numeric",
                   month: "numeric",
                   day: "numeric",
-                }).format(new Date(e.target.value.replace(/-/, '/').replace(/-/, '/'))))
+                }).format(new Date(e.target.value)).replace(/-/, '/').replace(/-/, '/'))
   }	  
 
   const dates = {startDate, endDate}	

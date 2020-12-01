@@ -503,8 +503,8 @@ gfs.files.find({ filename: drop.title }).toArray(function (err, files) {
 
 withForOf();
 })
-cron.schedule('0 */6 * * *', async () => {
-   const schedule = await Schedule.find();
+cron.schedule('0,30 * * * *', async () => {
+  const schedule = await Schedule.find();
   var scheduleObj = schedule.reduce(function (r, o) {
     var k = parseInt(o.lookBack);
     if (r[k] || (r[k] = [])) r[k].push(o);
@@ -755,13 +755,20 @@ console.log(updatedList.length)
     const gfs = Grid(conn.db, mongoose.mongo);
     const json2csvParser = new Parser();
 
-const slop = updatedDrop.filter(e => e.updatedList.length > 0)
+///const slop = updatedDrop.filter(e => e.updatedList.length > 0)
 //console.log(slop)
-slop.forEach((drop) =>{
+updatedDrop.forEach((drop) =>{
 
  
     const transporter = nodemailer.createTransport({
-          host: "smtp.gmail.com",
+       
+        service: 'gmail',
+     auth: {
+    user: 'blackballedproductions@gmail.com',
+    pass: 'Pay@ttention35!' // naturally, replace both with your real credentials or an application-specific password
+  }
+      
+      /*   host: "smtp.gmail.com",
           port: 465,
           secure: true,
           auth: {
@@ -772,7 +779,7 @@ slop.forEach((drop) =>{
           },
            tls:{
         rejectUnauthorized:false
-    }    
+    }    */
   })
 gfs.files.find({ filename: drop.title }).toArray(function (err, files) {
       var readableStream = gfs.createReadStream({ filename: drop.title });
@@ -826,24 +833,24 @@ gfs.files.find({ filename: drop.title }).toArray(function (err, files) {
 
 //console.log(result)
 
-
+/*
      const csv =  json2csvParser.parse(result) 
 
         const tracker = drop.title;
         const dt = drop.date;
 
         const attachment2 = {
-          filename: `${tracker}__ ${dt}.csv`,
+          filename: `${tracker}__ ${Sdt}.csv`,
           content: csv,
         };
-
+*/
      const mailer = {
-          title: "Daily Mail Drop",
+          title: "Sorry Not Sorry",
           from: "NTE",
-          to: ["poakes@nattaxexperts.com","mickeygray85@hotmail.com","mforde@nattaxexperts.com"],
-          subject: ` ${tracker} Daily Mail Drop `,
-          attachments: [attachment1, attachment2],
-          text: `This will happen every 6 hours the first few days, then every three hours, then every half hour, then once a second. Attached is the pdf and csv for the Direct Mail Campaign ${drop.title}. Thanks, NTE!`,
+          to: ["poakes@nattaxexperts.com","mforde@nattaxexperts.com"],
+          subject: ` Nope sorry we need to wait another year`,
+         // attachments: [attachment1, attachment2],
+          text: `Im tired of trying to reach you by using my hands.  so im just going to email you automatically from here until you get over your preciousness and let me fucking help. good fucking christ.`,
         };
 
   transporter.sendMail(mailer);  

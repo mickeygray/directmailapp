@@ -481,7 +481,21 @@ const transporter = nodemailer.createTransport({
 
 router.get("/dups", async (req, res) => {
 
-  const leads = await Lead.find({})
+  console.log(req.query.q)
+
+ // const { startDate, endDate } = JSON.parse(req.query.q);
+
+
+
+ // const momentPeriodStart = new Date(startDate);
+ // const momentPeriodEnd = new Date(endDate);
+
+  
+  const leads = await Lead.find({
+
+  });
+
+  console.log(leads)
   var uniq = leads
   .map((lead) => {
     return {
@@ -498,6 +512,8 @@ router.get("/dups", async (req, res) => {
 
   const dupLeads = leads.filter((lead) => duplicates.includes(lead.mailKey))
 
+
+  console.log(dupLeads)
   res.json(dupLeads)
 
 });
@@ -878,7 +894,7 @@ if(lead.filingDate){
   console.log(lead.amount.replace("$","").replace(",", ""))
 
   console.log( lead.lastName.replace("-","").toLowerCase() )
-  lead.mailKey = lead.address.trim().substr(0,lead.address.indexOf(' ')-1).toLowerCase() + lead.amount.replace("$","").replace(",", "") + lead.lastName.replace("-","").toLowerCase() 
+  lead.mailKey = (lead.address.trim().substr(0,lead.address.indexOf(' ')).toLowerCase() + lead.amount.replace("$","").replace(",", "") + lead.lastName.replace("-","").toLowerCase()).replace(' ','') 
 
   if(lead.mailKey.startsWith("p")){
     lead.mailKey = lead.mailKey.substring(0, 1) + 'o' + lead.mailKey.substring(1,lead.mailKey.length);
